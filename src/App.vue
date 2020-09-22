@@ -48,22 +48,13 @@
 import Vue from 'vue'
 import { mapState } from 'vuex'
 import Axios from 'axios'
+
 export default {
 	methods:{
 		async logout(){
-			/*const BASEURL = "http://localhost:8000/api/logout";
-			let token = localStorage.getItem("token");
-			let log = "Bearer " + token
 			let user = this.user
-			user.token = log
-			console.log(log)
-			try{
-
-				let response = await Axios.post(BASEURL,user)
-				console.log(response)
-			}catch(error){
-				console.log(error)
-			}*/
+			this.$store.dispatch('logout',user)
+			
 		}
 	},
 	computed:mapState([ 'user'])

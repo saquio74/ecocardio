@@ -16,18 +16,7 @@ const BASEURL = "http://localhost:8000/";
 const ENDPOINT = "/api/user";
 
 if (token) {
-	axios
-		.create({
-			baseURL: BASEURL,
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: "Bearer " + token,
-			},
-		})
-		.get(ENDPOINT)
-		.then((res) => {
-			store.state.user = res.data;
-		});
+	store.dispatch("getUser");
 }
 
 new Vue({

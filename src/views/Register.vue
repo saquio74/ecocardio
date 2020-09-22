@@ -52,7 +52,7 @@ export default Vue.extend({
     methods:{
         async register(){
             try {
-                let response:String = await Axios.post('api/register',this.datos);
+                let response:String = await Axios.post('api/auth/signup',this.datos);
                 console.log(response)
             } catch (error) {
                 

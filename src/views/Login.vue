@@ -37,7 +37,7 @@ export default Vue.extend({
     },
     methods:{
         login(){
-            console.log(this.datos)
+            
             this.$store.dispatch('login',this.datos)
         }
     },
