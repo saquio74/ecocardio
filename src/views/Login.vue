@@ -26,6 +26,8 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import { mapActions, mapState } from 'vuex'
+
 export default Vue.extend({
     data(){
         return{
@@ -42,9 +44,7 @@ export default Vue.extend({
         }
     },
     computed:{
-        user(){
-            return this.$store.state.user
-        }
+        ...mapState(['user']),
     }
 })
 </script>
