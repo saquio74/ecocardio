@@ -50,9 +50,14 @@
             <br>
         </div>
         <div>
-            
-            {{pagination}}
-            
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item"><button class="page-link" v-if="pagination.current_page>1" @click="changePage(pagination.current_page-1)">Previous</button></li>
+                    <li class="page-item" v-for="page in paginated" :key="page" @click="changePage(page)" v-bind:class="page == pagination.current_page ? 'active':''"><button class="page-link">{{page}}</button></li>
+                    <li class="page-item"><button class="page-link" v-if="pagination.current_page<pagination.last_page" @click="changePage(pagination.current_page+1)">Next</button></li>
+                </ul>
+            </nav>
+
         </div>
         <postCreate></postCreate>
     </div>
@@ -74,18 +79,40 @@ export default Vue.extend({
         }
     },
     created(){
-        this.getPost()
+        this.chargePost();
     },
     methods:{
         ...mapActions('post',['getPost']),
         getDateFormated(date){
             moment.locale('es');
             return moment(date).format('LLLL')
+        },
+        chargePost(){
+            if(this.post==''){
+                this.getPost()
+            }
+        },
+        changePage(page){
+            this.pagination.current_page = page;
+            this.getPost(page);
         }
     },
     computed:{
         ...mapState('post',['post','pagination','dataUrl']),
         ...mapState(['user']),
+        paginated(){
+            if(!this.pagination.to){
+                return[]
+            }
+            let from = (this.pagination.current_page-2 <= 0) ? 1:this.pagination.current_page -2 
+            let to = from + (2*2)>this.pagination.last_page ? to = this.pagination.last_page :from + (2*2)
+            const pageArray = []
+            while(from<=to){
+                pageArray.push(from)
+                from++;
+            }
+            return pageArray
+        }
         
     },
 })

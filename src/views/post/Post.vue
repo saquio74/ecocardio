@@ -21,12 +21,15 @@
                 </b-col>
                 <b-col md="8" offset="2">
 
-                    <router-link class="btn btn-info btn-block" to="/post">volver</router-link>
+                    <button class="btn btn-info btn-block" @click="volver()">volver</button>
                 </b-col>
             </b-row>
         </b-card>
         <br>
-        {{post}}
+        <div class="bg-danger text-white" v-if="error">
+
+            {{error.response.data.message}}
+        </div>
     </div>
 </template>
 <script >
@@ -44,22 +47,28 @@ export default Vue.extend({
     methods:{
         ...mapActions('post',['postId']),
         async buscarPost(){
-            if(this.post==''){
 
-                await this.postId(this.$route.params.id)
-                this.postData = this.postInfo
-            }else{
-                this.postData = this.post.find(x=>{
-                    if(x.id == this.$router.params.id){
+            if(this.post!=''){
+
+                this.postData = this.post.find((x)=>{
+                    if(x.id == this.$route.params.id){
                         return x
-                    } 
+                    }
                 })
             }
+            if(this.postData==''){
+                await this.postId(this.$route.params.id)
+                this.postData = this.postInfo
+            }
         },
+        volver(){
+            this.$router.go(-1)
+        }
     },
     computed:{
-        ...mapState('post',['postInfo','dataUrl','post'])
-    }
+        ...mapState('post',['postInfo','dataUrl','post','error'])
+    },
+    
     
 })
 </script>
