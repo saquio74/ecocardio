@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import router from "../router";
+import post from "../modules/post";
 
 axios.defaults.baseURL = "http://localhost:8000/";
 
@@ -18,13 +19,6 @@ export default new Vuex.Store({
 		},
 	},
 	actions: {
-		async pacientes({ commit }) {
-			let url: string = "api/pacientes";
-			try {
-				let pacientes = await axios.get(url);
-				console.log(pacientes);
-			} catch (error) {}
-		},
 		async login({ dispatch }, data) {
 			try {
 				let url = "api/auth/login";
@@ -73,5 +67,7 @@ export default new Vuex.Store({
 			}
 		},
 	},
-	modules: {},
+	modules: {
+		post,
+	},
 });

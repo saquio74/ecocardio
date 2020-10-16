@@ -29,8 +29,10 @@
                     </div>
                     <button type="submit" class="btn btn-primary"> Register</button>
                 </form>
-                {{datos}}
-            
+                <span v-for="error in errors" :key="error" class="text-danger">
+                    {{error[0]}}
+                    <br>
+                </span>
             </b-card>
         </b-card-group>
     </div>
@@ -38,6 +40,7 @@
 <script lang="ts">
 import Axios from 'axios'
 import Vue from 'vue'
+import { mapState } from 'vuex'
 export default Vue.extend({
     data(){
         return{
@@ -46,18 +49,36 @@ export default Vue.extend({
                 email:      '',
                 password:   '',
                 password_confirmation:  '',
-            }
+            },
+            errors:[],
         }
     },
+    created(){
+        this.goHome()
+    },
     methods:{
+        goHome(){
+            if(this.user){
+                this.$router.push('/')
+            }
+        },
         async register(){
             try {
                 let response:String = await Axios.post('api/auth/signup',this.datos);
-                console.log(response)
+                this.$notify({
+                    group: 'foo',
+                    title: '¡¡¡Listo!!!',
+                    text: 'Se ha registrado exitosamente!!!!!',
+                    type: 'success'
+                });
+                this.$router.push('/login')
             } catch (error) {
-                
+                this.errors =error.response.data.errors 
             }
         }
+    },
+    computed:{
+        ...mapState(['user'])
     }
 })
 </script>

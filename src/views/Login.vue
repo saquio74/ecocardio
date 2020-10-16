@@ -37,7 +37,15 @@ export default Vue.extend({
             }
         }
     },
+    created(){
+        this.goHome()
+    },
     methods:{
+        goHome(){
+            if(this.user){
+                this.$router.push('/');
+            }
+        },
         login(){
             
             this.$store.dispatch('login',this.datos)

@@ -30,6 +30,16 @@ const routes: Array<RouteConfig> = [
 		name: "Post",
 		component: () => import("../views/post/PostView.vue"),
 	},
+	{
+		path: "/post/:id",
+		name: "PostView",
+		component: () => import("../views/post/Post.vue"),
+	},
+	{
+		path: "/post/update",
+		name: "PostUpdate",
+		component: () => import("../views/post/PostUpdate.vue"),
+	},
 ];
 
 const router = new VueRouter({

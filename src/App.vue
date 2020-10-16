@@ -48,7 +48,7 @@
 		<b-container>
 			<router-view />
 		</b-container>
-		
+		<notifications group="foo" />
 
 	</div>
 </template>
