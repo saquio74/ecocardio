@@ -3,8 +3,9 @@ import Vuex from "vuex";
 import axios from "axios";
 import router from "../router";
 import post from "../modules/post";
+import comments from "../modules/comments";
 
-axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.baseURL = "http://ecocardiosocial.com/";
 
 Vue.use(Vuex);
 
@@ -12,10 +13,15 @@ export default new Vuex.Store({
 	state: {
 		user: null,
 		pacientes: [],
+		error: [],
 	},
 	mutations: {
 		SET_USER(state, user) {
 			state.user = user;
+		},
+		SET_ERRORS(state, error) {
+			console.log(error);
+			state.error = error;
 		},
 	},
 	actions: {
@@ -28,7 +34,13 @@ export default new Vuex.Store({
 				localStorage.token = await user.access_token;
 				router.push({ name: "Home" });
 				return dispatch("getUser");
-			} catch (error) {}
+			} catch (error) {
+				console.log(error.response.data.message);
+				return dispatch("setError", error.response.data.message);
+			}
+		},
+		setError({ commit }, error) {
+			commit("SET_ERRORS", error);
 		},
 		async getUser({ commit }) {
 			let token = localStorage.getItem("token");
@@ -53,7 +65,7 @@ export default new Vuex.Store({
 			let token = localStorage.getItem("token");
 
 			try {
-				axios
+				await axios
 					.create({
 						headers: {
 							"Content-Type": "aplication/json",
@@ -61,13 +73,31 @@ export default new Vuex.Store({
 						},
 					})
 					.post("api/logout");
+				router.push("/login");
 				commit("SET_USER", null);
 			} catch (error) {
 				console.log(error);
 			}
 		},
+		async loginSocial({ dispatch }) {
+			let url = "api/login/google";
+			try {
+				let response = await axios.get(url);
+				let urlResponse = await response.data.url;
+				if (urlResponse) {
+					window.location.href = urlResponse;
+				}
+			} catch (error) {
+				console.log(error);
+			}
+
+			//localStorage.token = await urlResponse.access_token;
+			//router.push({ name: "Home" });
+			//return dispatch("getUser");
+		},
 	},
 	modules: {
 		post,
+		comments,
 	},
 });

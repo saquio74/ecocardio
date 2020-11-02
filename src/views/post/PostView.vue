@@ -1,8 +1,12 @@
 <template>
     <div>
         <br>
-        <b-button v-if="user" variant="dark" v-b-modal.postCreate>Crear Nuevo Post</b-button>
+        <b-button v-if="user" variant="outline-dark" v-b-modal.postCreate>Crear nuevo post</b-button>
+        <b-button v-if="user" variant="outline-dark" to="/misposts">Ver mis posts</b-button>
         <br>
+        <div v-if="post==0" class="col-sm-12 text-center">
+            <loading />
+        </div>
         <div v-for="postData in post" :key="postData.id" class="text-center">
             <b-card class="overflow-hidden" bg-variant="white" text-variant="dark" body-border-variant="primary" >
                 <b-row no-gutters>
@@ -52,26 +56,28 @@
         <div>
             <nav>
                 <ul class="pagination">
-                    <li class="page-item"><button class="page-link" v-if="pagination.current_page>1" @click="changePage(pagination.current_page-1)">Previous</button></li>
-                    <li class="page-item" v-for="page in paginated" :key="page" @click="changePage(page)" v-bind:class="page == pagination.current_page ? 'active':''"><button class="page-link">{{page}}</button></li>
-                    <li class="page-item"><button class="page-link" v-if="pagination.current_page<pagination.last_page" @click="changePage(pagination.current_page+1)">Next</button></li>
+                    <li class="page-item"><button class="page-link" v-if="pagination.current_page>1" @click.prevent="changePage(pagination.current_page-1)">Previous</button></li>
+                    <li class="page-item" v-for="page in paginated" :key="page" @click.prevent="changePage(page)" v-bind:class="page == pagination.current_page ? 'active':''"><button class="page-link">{{page}}</button></li>
+                    <li class="page-item"><button class="page-link" v-if="pagination.current_page<pagination.last_page" @click.prevent="changePage(pagination.current_page+1)">Next</button></li>
                 </ul>
             </nav>
-
         </div>
         <postCreate></postCreate>
     </div>
 </template>
 <script>
-
 import post from '@/modules/post'
 import Vue from 'vue'
 import { mapActions, mapState } from 'vuex'
 import postCreate from '../post/PostCreate.vue'
+import loading from '../animation/Loading.vue'
+
 import moment from 'moment'
 export default Vue.extend({
     components:{
-        postCreate
+        postCreate,
+        loading
+        
     },
     data(){
         return{
@@ -95,7 +101,7 @@ export default Vue.extend({
         changePage(page){
             this.pagination.current_page = page;
             this.getPost(page);
-        }
+        },
     },
     computed:{
         ...mapState('post',['post','pagination','dataUrl']),
@@ -104,9 +110,10 @@ export default Vue.extend({
             if(!this.pagination.to){
                 return[]
             }
-            let from = (this.pagination.current_page-2 <= 0) ? 1:this.pagination.current_page -2 
-            let to = from + (2*2)>this.pagination.last_page ? to = this.pagination.last_page :from + (2*2)
+            let from = (this.pagination.current_page-2 <= 0) ? 1:this.pagination.current_page -1
+            let to = from + (2*2)>this.pagination.last_page ? to = this.pagination.last_page :from + (2*1)
             const pageArray = []
+            
             while(from<=to){
                 pageArray.push(from)
                 from++;

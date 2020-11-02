@@ -28,9 +28,12 @@
                         <img id="img" :src="image" class="col-sm-12"/>
                     </div>
                 </div>
-                <div class="text-center">
+                <div class="text-center" v-if="bandera == 0">
 
                     <button class="btn btn-primary col-sm-8" type="submit">Guardar Post</button>
+                </div>
+                <div class="text-center" v-else>
+                    <buttonWait />            
                 </div>
             </form>
         </div>
@@ -43,8 +46,12 @@ import axios from 'axios'
 import Vue from 'vue'
 import { mapActions, mapState } from 'vuex'
 import notification from 'vue-notification'
+import buttonWait from '../animation/ButtonWait.vue'
 
 export default Vue.extend({
+    components:{
+        buttonWait
+    },
     data(){
         return{
             miniatura: '',
@@ -53,7 +60,8 @@ export default Vue.extend({
                 description:    '',
                 user_id:        '',
                 img:            '',
-            }
+            },
+            bandera: 0,
         }
     },
     methods:{
@@ -70,6 +78,7 @@ export default Vue.extend({
             reader.readAsDataURL(img)
         },
         async guardarPost(){
+            this.bandera ++
             const formData = new FormData();
             formData.append('title',this.post.title)
             formData.append('description',this.post.description)
@@ -96,13 +105,24 @@ export default Vue.extend({
                     type: 'success'
                 });
                 await this.getPost();
+                let url ={
+                    
+                    id : this.user.id
+                } 
+                await this.getMyPosts(url)
                 this.$bvModal.hide('postCreate')
+                this.bandera--
             } catch (error) {
-                console.log(error)
+                this.$notify({
+                    group: 'foo',
+                    title: '¡¡¡ocurrio un error!!!',
+                    text: error,
+                    type: 'error'
+                });
+                this.bandera--
             }
-            //this.$store.dispatch('savePost',this.post)
         },
-        ...mapActions('post',['getPost'])
+        ...mapActions('post',['getPost','getMyPosts'])
     },
     computed:{
         ...mapState(['user']),

@@ -8,7 +8,7 @@
                         <h4>{{postData.title}}</h4>
                     </b-card-header>
                 </b-col>
-                <b-col md="12" class="mt-2">
+                <b-col sm="12" md="6" class="mt-2" offset-md="3">
                     <b-card-img :src="dataUrl+postData.img" width="100%" alt="Image" class="rounded-0 btn-outline-primary"></b-card-img>
                 </b-col>
                 <b-col md="12">
@@ -21,7 +21,7 @@
                 </b-col>
                 <b-col md="8" offset="2">
 
-                    <button class="btn btn-info btn-block" @click="volver()">volver</button>
+                    <button class="btn btn-danger btn-block" @click="volver()">volver</button>
                 </b-col>
             </b-row>
         </b-card>
@@ -30,12 +30,25 @@
 
             {{error.response.data.message}}
         </div>
+        <b-card class="overflow-hidden" bg-variant="secondary" text-variant="white" body-border-variant="primary" >
+            <div class="text-center">
+                <h1>
+                    <span class="badge badge-secondary">Comentarios</span>
+                </h1>
+
+            </div>
+            <comments></comments>
+        </b-card>
     </div>
 </template>
 <script >
 import Vue from 'vue'
+import comments from '../comments/Comments.vue'
 import { mapActions, mapState } from 'vuex'
 export default Vue.extend({
+    components:{
+        comments
+    },
     data(){
         return{
             postData:''

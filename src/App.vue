@@ -56,8 +56,6 @@
 import Vue from 'vue'
 import { mapState } from 'vuex'
 import { mapActions } from 'vuex'
-import Axios from 'axios'
-
 export default {
 	methods:{
 		...mapActions(['logout']),

@@ -3,10 +3,14 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import notifications from "vue-notification";
-
-Vue.config.productionTip = false;
+import { VueReCaptcha } from "vue-recaptcha-v3";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 
+Vue.config.productionTip = false;
+
+Vue.use(VueReCaptcha, {
+	siteKey: "6LdGs90ZAAAAAL3q0qIzp_Q-OhXyZ5Q0kdPRGZpq",
+});
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 Vue.use(notifications);
