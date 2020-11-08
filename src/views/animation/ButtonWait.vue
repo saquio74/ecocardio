@@ -1,8 +1,8 @@
 <template>
     <div>
-        <button class="btn btn-primary col-sm-8" disabled>
+        <button class="btn btn-primary col-sm-12" disabled>
             <b-spinner small type="grow"></b-spinner>
-            Espere Por Favor...
+            Espere por favor...
         </button>
     </div>
 </template>

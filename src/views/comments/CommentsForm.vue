@@ -18,8 +18,10 @@
             <b-button type="submit" variant="primary" @click="recaptcha">Guardar</b-button>
             <b-button type="reset" variant="danger">Borrar</b-button>
         </form>
-        <div class="text-center" v-else>
-            <loading />
+        <div class="text-center" v-if="!user">
+            <h2>
+                <p>Debes estar logueado para comentar</p>
+            </h2>
         </div>
     </div>
 </template>

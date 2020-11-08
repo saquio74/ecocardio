@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-col sm="6" offset="3" v-if="bandera==0">
+        <b-col sm="10" offset="1" v-if="bandera==0">
 
             <b-button variant="primary btn-block"  @click="cargarComentarios()">
                 Cargar Comentarios
@@ -8,39 +8,47 @@
         </b-col>
         <div v-else>
 
-            <div class="text-center" v-if="bandera!=0 && comentarios==0">
+            <div class="text-center" v-if="bandera!=0 && comentario==0">
                 <br>
                 <loading />
             </div>
             <div class="text-left" v-else>
-                <div v-for="comentario in comentarios" :key="comentario.id" class="border-">
+                <div v-if="comentarios">
 
-                    <div class="row col-sm-6 offset-sm-6 border border-warning" v-if="comentario.user_id == user.id">
-                        <div class="col-sm-6">
-                            {{comentario.name}}
-                        </div>
-                        <div class="col-sm-6 badge-primary text-right">
-                            {{getDateFormated(comentario.created_at)}}
-                        </div>
-                        <div class="col-sm-12 alert alert-secondary" >
-                            {{comentario.comentario}}
-                        </div>
-                        <button class="offset-sm-8 col-sm-4 badge-danger btn btn-sm" @click="deleteComentario(comentario.id)">
-                            eliminar
-                        </button>
-                    </div>
-                    <div class="col-sm-6 border border-warning row" v-else>
-                        <div class="col-sm-6">
-                            {{comentario.name}}
-                        </div>
-                        <div class="col-sm-6 badge-primary text-right">
-                            {{getDateFormated(comentario.created_at)}}
-                        </div>
-                        <div class="alert alert-primary col-sm-12" >
-                            {{comentario.comentario}}
-                        </div>
-                    </div>
+                    <div v-for="comentario in comentarios" :key="comentario.id" class="border-">
 
+                        <div class="row col-sm-8 offset-sm-4 border border-warning" v-if="user && comentario.user_id == user.id">
+                            <div class="col-sm-6">
+                                {{comentario.name}}
+                            </div>
+                            <div class="col-sm-6 badge-primary text-right">
+                                {{getDateFormated(comentario.created_at)}}
+                            </div>
+                            <div class="col-sm-12 alert alert-secondary" >
+                                {{comentario.comentario}}
+                            </div>
+                            <button class="offset-sm-8 col-sm-4 badge-danger btn btn-sm" @click="deleteComentario(comentario.id)">
+                                eliminar
+                            </button>
+                        </div>
+                        <div class="col-sm-8 border border-warning row" v-else>
+                            <div class="col-sm-6">
+                                {{comentario.name}}
+                            </div>
+                            <div class="col-sm-6 badge-primary text-right">
+                                {{getDateFormated(comentario.created_at)}}
+                            </div>
+                            <div class="alert alert-primary col-sm-12" >
+                                {{comentario.comentario}}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="text-center" v-if="comentarios==0">
+                    <h2>
+                        <p>No hay comentarios se el primero en hacerlo</p>
+                    </h2>
                 </div>
             </div>
             <div class="text-center">
@@ -88,12 +96,12 @@ export default {
         ...mapActions('comments',['getComentarios']),
         async cargarComentarios(){
             this.bandera++
-            if(this.comentarios==''){
-                let pagina = {
-                    post_id: this.$router.history.current.params.id,
-                }
-                await this.getComentarios(pagina)
+            let pagina = {
+                post_id: this.$router.history.current.params.id,
             }
+            await this.getComentarios(pagina)
+            
+            this.comentario++
         },
         getDateFormated(date){
             moment.locale('es');
