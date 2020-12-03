@@ -5,9 +5,14 @@ import store from "./store";
 import notifications from "vue-notification";
 import { VueReCaptcha } from "vue-recaptcha-v3";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faHome, faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
+library.add(faHome, faArrowDown);
+
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.config.productionTip = false;
-
 Vue.use(VueReCaptcha, {
 	siteKey: "6LdGs90ZAAAAAL3q0qIzp_Q-OhXyZ5Q0kdPRGZpq",
 });

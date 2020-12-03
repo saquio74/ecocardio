@@ -1,4 +1,3 @@
-import { Commit } from "vuex";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://ecocardiosocial.com/";

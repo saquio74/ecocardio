@@ -4,6 +4,7 @@ import axios from "axios";
 import router from "../router";
 import post from "../modules/post";
 import comments from "../modules/comments";
+import patients from "../modules/patients";
 
 axios.defaults.baseURL = "http://ecocardiosocial.com/";
 
@@ -99,5 +100,6 @@ export default new Vuex.Store({
 	modules: {
 		post,
 		comments,
+		patients,
 	},
 });

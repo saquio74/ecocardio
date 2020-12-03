@@ -3,19 +3,20 @@
 		<div>
 			<b-navbar toggleable="md" type="dark" variant="dark">
 				<img alt="Corazon logo" src="./assets/logo.png">
-				<b-navbar-brand to="/">Ecocardio</b-navbar-brand>
+				<b-navbar-brand to="/">Ecocardio Social</b-navbar-brand>
 
 				<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
 				<b-collapse id="nav-collapse" is-nav>
 				<b-navbar-nav>
 					<b-nav-item to="/post">Post</b-nav-item>
-					<b-nav-item to="">Estudios</b-nav-item>
+					<b-nav-item to="/estudios">Estudios</b-nav-item>
 					<b-nav-item-dropdown v-if="user">
 						<template v-slot:button-content>
 							<em>Pacientes</em>
 						</template>
-						<b-dropdown-item to="/patient">Nuevo paciente</b-dropdown-item>
+						<b-dropdown-item to="/patientform">Nuevo paciente</b-dropdown-item>
+						<b-dropdown-item to="/animation">Nuevo paciente</b-dropdown-item>
 						<b-dropdown-item to="/Modificar">Modificar Paciente</b-dropdown-item>
 					</b-nav-item-dropdown>
 					<b-nav-item to="/about">Sobre nosotros</b-nav-item>
