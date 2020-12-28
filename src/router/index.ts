@@ -22,6 +22,11 @@ const routes: Array<RouteConfig> = [
 		component: () => import("../views/Login.vue"),
 	},
 	{
+		path: "/updateuser",
+		name: "updateUser",
+		component: () => import("../views/Register.vue"),
+	},
+	{
 		path: "/register",
 		name: "Register",
 		component: () => import("../views/Register.vue"),
@@ -57,6 +62,11 @@ const routes: Array<RouteConfig> = [
 		component: () => import("../views/estudios/Estudio.vue"),
 	},
 	{
+		path: "/modificarpatient",
+		name: "modificarPatient",
+		component: () => import("../views/estudios/Estudio.vue"),
+	},
+	{
 		path: "/patientform",
 		name: "crearPaciente",
 		component: () => import("../views/patients/CreatePatient.vue"),
@@ -70,6 +80,16 @@ const routes: Array<RouteConfig> = [
 		path: "/newstudy",
 		name: "nuevoEstudio",
 		component: () => import("../views/estudios/NewStudy.vue"),
+	},
+	{
+		path: "/email/:id/:code",
+		name: "mailConfirmation",
+		component: () => import("../views/emails/EmailConfirmations.vue"),
+	},
+	{
+		path: "/email/resend",
+		name: "mailResend",
+		component: () => import("../views/emails/EmailResend.vue"),
 	},
 ];
 

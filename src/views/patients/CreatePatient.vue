@@ -132,6 +132,7 @@ import moment from 'moment'
 import CryptoJS from 'crypto-js'
 import swal from 'sweetalert'
 import ButtonWait from '../animation/ButtonWait'
+import { mapState } from 'vuex'
 export default {
     components:{
         ButtonWait,
@@ -164,9 +165,13 @@ export default {
         }
     },
     mounted(){
-        this.getProvincias()
+        this.getProvincias(),
+        this.verificarConfirmed()
     },
     methods:{
+        verificarConfirmed(){
+            if(this.user.email_verified_at==null) this.$router.push('/email/resend')
+        },
         async getProvincias(){
             try {
                 let response = await axios.get('https://apis.datos.gob.ar/georef/api/provincias?campos=id,nombre')
@@ -232,7 +237,6 @@ export default {
             } catch (error) {
                 this.bandera--
                 this.errors =error.response.data.errors
-                console.log(error.response.data.errors)
                 swal({
                     icon: "error",
                     title: 'Ocurrio un error'
@@ -242,7 +246,7 @@ export default {
 
     },
     computed:{
-        
+        ...mapState(['user'])
     }
     
 }

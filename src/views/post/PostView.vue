@@ -1,8 +1,8 @@
 <template>
     <div>
         <br>
-        <b-button v-if="user" variant="outline-dark" v-b-modal.postCreate>Crear nuevo post</b-button>
-        <b-button v-if="user" variant="outline-dark" to="/misposts">Ver mis posts</b-button>
+        <b-button v-if="user && user.email_verified_at !=null" variant="outline-dark" v-b-modal.postCreate>Crear nuevo post</b-button>
+        <b-button v-if="user && user.email_verified_at !=null" variant="outline-dark" to="/misposts">Ver mis posts</b-button>
         <br>
         <div v-if="post==0" class="col-sm-12 text-center">
             <loading />

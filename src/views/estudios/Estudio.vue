@@ -38,7 +38,7 @@
         </b-card>
         <div v-if="patient.id>0" class="card text-center">
             <b-col sm="12">
-                <b-button  to="/newstudy" variant="dark">
+                <b-button v-if="ruta=='estudios'"  to="/newstudy" variant="dark">
                     Seleccionar Paciente
                 </b-button>
                 <b-button  to="/updatepatientform" variant="dark">
@@ -64,24 +64,38 @@ export default {
         return{
             dni:'',
             paciente:'',
-            bandera:0
+            bandera:0,
+            ruta:''
         }
     },
     created(){
-        this.searchPatient()
+        this.searchPatient(),
+        this.verificarConfirmed(),
+        this.obtenerRuta()
     },
     methods:{
         ...mapActions('patients',['getPatient']),
         async searchPatient(){
+            this.ruta =this.$route.name
             if(this.dni!==''){
                 await this.getPatient(this.dni)
                 this.paciente = this.patient
                 this.bandera++
             }
-        } 
+        },
+        verificarConfirmed(){
+            if(this.user.email_verified_at==null) this.$router.push('/email/resend')
+        },
+        obtenerRuta(){
+            
+            if(!this.user){
+                this.$router.push('/login')
+            }
+        }
     },
     computed:{
-        ...mapState('patients',['patient','error'])
+        ...mapState('patients',['patient','error']),
+        ...mapState(['user'])
     }
     
 }
