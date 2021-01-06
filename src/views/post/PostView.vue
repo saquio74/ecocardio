@@ -4,7 +4,7 @@
         <b-button v-if="user && user.email_verified_at !=null" variant="outline-dark" v-b-modal.postCreate>Crear nuevo post</b-button>
         <b-button v-if="user && user.email_verified_at !=null" variant="outline-dark" to="/misposts">Ver mis posts</b-button>
         <br>
-        <div v-if="post==0" class="col-sm-12 text-center">
+        <div v-if="!post" class="col-sm-12 text-center">
             <loading />
         </div>
         <div v-for="postData in post" :key="postData.id" class="text-center">
@@ -33,6 +33,7 @@
                     </b-col>
                     <b-col md="3" class="mt-2">
                         <b-card-img :src="dataUrl+postData.img" width="100" alt="Image" class="rounded-0 outline-primary"></b-card-img>
+                        {{dataUrl+postData.img}}
                     </b-col>
                     <b-col md="9">
                         <b-col md="12" class="mt-2"></b-col>

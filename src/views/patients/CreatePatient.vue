@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div class="form-group row mt-2 text-center">
-                <label for="inputPassword" class="col-sm-3 col-form-label">cuit o cuil</label>
+                <label for="inputPassword" class="col-sm-3 col-form-label">cuit o cuil (sin guiones)</label>
                 <div class="col-sm-9">
                 <input v-model="pacienteData.cuit" type="number" class="form-control" id="cuit" placeholder="cuit o cuil">
                 </div>

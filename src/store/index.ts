@@ -6,7 +6,7 @@ import post from "../modules/post";
 import comments from "../modules/comments";
 import patients from "../modules/patients";
 
-axios.defaults.baseURL = "http://ecocardiosocial.com/";
+axios.defaults.baseURL = "https://guarded-hollows-69841.herokuapp.com/";
 
 Vue.use(Vuex);
 

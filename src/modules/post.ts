@@ -1,5 +1,5 @@
 import axios from "axios";
-axios.defaults.baseURL = "http://ecocardiosocial.com/";
+axios.defaults.baseURL = "https://guarded-hollows-69841.herokuapp.com/";
 export default {
 	namespaced: true,
 	state: {
@@ -8,7 +8,7 @@ export default {
 		myPost: [],
 		myPagination: [],
 		postInfo: "",
-		dataUrl: "http://ecocardiosocial.com/storage/img/",
+		dataUrl: "https://guarded-hollows-69841.herokuapp.com/storage/img/",
 		error: "",
 	},
 	mutations: {
