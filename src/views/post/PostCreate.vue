@@ -83,17 +83,23 @@ export default Vue.extend({
             formData.append('title',this.post.title)
             formData.append('description',this.post.description)
             formData.append('user_id',this.user.id)
-            formData.append('img',this.post.img);
+            
             //console.log(formData)
             //this.post.user_id = this.user.id
             try {
                 let token = localStorage.getItem("token");
+                let image = new FormData();
+                image.append('image', this.post.img)
+                let imgResponse = await axios.post("https://api.imgbb.com/1/upload?key=831e878d6a2d3d7a2467a7e5808721db", image)
+                formData.append('img',imgResponse.data.data.url);
                 let response = await axios.create({
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: "Bearer " + token,
                     },
                 }).post('api/postCreate', formData)
+           
+                console.log(imgResponse.data.data.url);
                 //console.log(response)
                 this.post.title = ''
                 this.post.description = ''

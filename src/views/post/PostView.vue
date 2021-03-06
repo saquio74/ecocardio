@@ -32,8 +32,8 @@
                         </b-card-header>
                     </b-col>
                     <b-col md="3" class="mt-2">
-                        <b-card-img :src="dataUrl+postData.img" width="100" alt="Image" class="rounded-0 outline-primary"></b-card-img>
-                        {{dataUrl+postData.img}}
+                        <b-card-img :src="postData.img" width="100" alt="Image" class="rounded-0 outline-primary"></b-card-img>
+                        {{postData.img}}
                     </b-col>
                     <b-col md="9">
                         <b-col md="12" class="mt-2"></b-col>

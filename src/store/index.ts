@@ -7,6 +7,7 @@ import comments from "../modules/comments";
 import patients from "../modules/patients";
 
 axios.defaults.baseURL = "https://guarded-hollows-69841.herokuapp.com/";
+//axios.defaults.baseURL = "http://localhost/";
 
 Vue.use(Vuex);
 
