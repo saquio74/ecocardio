@@ -1,7 +1,8 @@
 <template>
     <div >
-        <b-navbar toggleable="lg" type="dark" variant="info">
-            <!-- <img alt="Corazon logo" src="../assets/logo.png" id="logo"> -->
+        
+        <b-navbar toggleable="lg" type="dark" variant="dark">
+            <img alt="Corazon logo" src="../assets/logo.png" id="logo">
             <b-navbar-brand to="/">
                 <h2>
                     Ecocardio.Surge.sh

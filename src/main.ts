@@ -22,6 +22,7 @@ Vue.use(notifications);
 
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
+import vuetify from './plugins/vuetify';
 let token = localStorage.getItem("token");
 
 if (token) {
@@ -29,7 +30,8 @@ if (token) {
 }
 
 new Vue({
-	router,
-	store,
-	render: (h) => h(App),
+    router,
+    store,
+    vuetify,
+    render: (h) => h(App)
 }).$mount("#app");

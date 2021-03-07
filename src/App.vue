@@ -2,7 +2,7 @@
 	<div>
 		
 		
-		<header-component></header-component>
+			<header-component></header-component>
 		<b-container>
 			<router-view />
 			<notifications group="foo" />
